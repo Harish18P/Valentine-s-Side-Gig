@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Yay! 💖</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="center">
+  <div class="card">
+    <h1>Wise choice. Extremely wise. 😌💘</h1>
+    <p>Schedule a sweet message 💌</p>
+
+    <input
+      type="tel"
+      id="phone"
+      placeholder="Enter WhatsApp number with country code"
+    />
+
+    <label>Choose Time</label>
+    <div class="time">
+      <select id="hour"></select>
+      <select id="minute"></select>
+    </div>
+
+    <textarea id="message" placeholder="Write your special message... 💕"></textarea>
+
+    <button onclick="sendMessage()">Send Love 💖</button>
+  </div>
+
+<script>
+  const hourSelect = document.getElementById("hour");
+  const minuteSelect = document.getElementById("minute");
+
+  for (let h = 8; h <= 23; h++) {
+    hourSelect.innerHTML += `<option value="${h}">${h}:00</option>`;
+  }
+
+  ["00", "15", "30", "45"].forEach(m => {
+    minuteSelect.innerHTML += `<option value="${m}">${m}</option>`;
+  });
+
+  function sendMessage() {
+  const phone = document.getElementById("phone").value.trim();
+  const hour = document.getElementById("hour").value;
+  const minute = document.getElementById("minute").value;
+  const userMessage = document.getElementById("message").value.trim();
+
+  if (!phone) {
+    alert("Enter a phone number with country code 😤");
+    return;
+  }
+
+  // Build message components
+  const lines = [
+    "Hey,",
+    "",
+    "I have accepted your request. 💘",
+    "So, you better bring a gift.. 🎁 ",
+    "",
+    `Time: ${hour}:${minute}`,
+    "",
+    `Special Message for You : ${userMessage}`
+  ];
+  
+  const whatsappMessage = lines.join("\n");
+  const url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(whatsappMessage);
+
+  window.open(url, "_blank");
+}
+
+</script>
+
+
+</body>
+</html>
